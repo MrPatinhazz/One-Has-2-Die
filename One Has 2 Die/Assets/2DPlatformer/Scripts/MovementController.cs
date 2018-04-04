@@ -1,13 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class PlayerController : PhysicsObject
+public class MovementController : PhysicsObject
 {
 
     public float maxSpeed = 7;
     public float jumpTakeOffSpeed = 7;
 
+    private SpriteRenderer spRender;
+    private Animator animator;
+
+    public bool facingRight;
 
     //Moveset
     private string _horizontal;
@@ -20,6 +22,8 @@ public class PlayerController : PhysicsObject
 
     private void Awake()
     {
+        facingRight = true;
+
         if (gameObject.name == "Player_1")
         {
             _horizontal = HorizontalP1;
@@ -30,12 +34,9 @@ public class PlayerController : PhysicsObject
             _horizontal = HorizontalP2;
             _jump = JumpP2;
         }
-    }
 
-    // Use this for initialization
-    void Start()
-    {
-
+        spRender = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
     }
 
     protected override void ComputeVelocity()
@@ -44,8 +45,7 @@ public class PlayerController : PhysicsObject
 
         move.x = Input.GetAxis(_horizontal);
 
-        if (Input.GetButtonDown(_jump))
-
+        if (Input.GetButtonDown(_jump) && grounded)
         {
             velocity.y = jumpTakeOffSpeed;
         }
@@ -59,5 +59,17 @@ public class PlayerController : PhysicsObject
         }
 
         targetVelocity = move * maxSpeed;
+
+        //Flips character sprite depending on x movement.
+        bool flipSprite = (spRender.flipX ? (move.x > 0.01f) : (move.x < -0.01f));
+        if (flipSprite)
+        {
+            facingRight = !facingRight;
+            spRender.flipX = !spRender.flipX;
+        }
+
+        //Sets right sprite for grounded and walking position
+        animator.SetBool("grounded", grounded);
+        animator.SetFloat("velocityX", Mathf.Abs(velocity.x) / maxSpeed);
     }
 }
