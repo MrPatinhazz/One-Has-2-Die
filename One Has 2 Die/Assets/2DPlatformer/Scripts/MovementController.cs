@@ -2,7 +2,6 @@
 
 public class MovementController : PhysicsObject
 {
-
     public float maxSpeed = 7;
     public float jumpTakeOffSpeed = 7;
 
@@ -12,28 +11,12 @@ public class MovementController : PhysicsObject
     public bool facingRight;
 
     //Moveset
-    private string _horizontal;
-    public string HorizontalP1 = "Horizontal_P1";
-    public string HorizontalP2 = "Horizontal_P2";
-
-    private string _jump;
-    public string JumpP1 = "Jump_P1";
-    public string JumpP2 = "Jump_P2";
+    public string horinzontalAxis;
+    public string jumpButton;
 
     private void Awake()
     {
         facingRight = true;
-
-        if (gameObject.name == "Player_1")
-        {
-            _horizontal = HorizontalP1;
-            _jump = JumpP1;
-        }
-        else if (gameObject.name == "Player_2")
-        {
-            _horizontal = HorizontalP2;
-            _jump = JumpP2;
-        }
 
         spRender = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
@@ -43,18 +26,17 @@ public class MovementController : PhysicsObject
     {
         Vector2 move = Vector2.zero;
 
-        move.x = Input.GetAxis(_horizontal);
+        move.x = Input.GetAxis(horinzontalAxis);
 
-        if (Input.GetButtonDown(_jump) && grounded)
+        if (Input.GetButtonDown(jumpButton) && grounded)
         {
             velocity.y = jumpTakeOffSpeed;
         }
-        else if (Input.GetButtonUp(_jump))
+        else if (Input.GetButtonUp(jumpButton))
         {
             if (velocity.y > 0)
             {
                 velocity.y = velocity.y * .5f;
-
             }
         }
 
