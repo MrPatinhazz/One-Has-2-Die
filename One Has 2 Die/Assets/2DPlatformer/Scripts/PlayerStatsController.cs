@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerStatsController : MonoBehaviour {
 
@@ -12,10 +13,4 @@ public class PlayerStatsController : MonoBehaviour {
         maxHP = 5;
         currHP = 5;
 	}
-
-    public void IncrMaxHP()
-    {
-        maxHP++;
-    }
-	
 }
