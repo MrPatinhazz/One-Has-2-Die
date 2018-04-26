@@ -6,7 +6,7 @@ public class MovementController : PhysicsObject
     public float jumpTakeOffSpeed = 7;
 
     private SpriteRenderer spRender;
-    private Animator animator;
+    //private Animator animator;
 
     public bool facingRight;
 
@@ -19,7 +19,7 @@ public class MovementController : PhysicsObject
         facingRight = true;
 
         spRender = GetComponent<SpriteRenderer>();
-        animator = GetComponent<Animator>();
+        //animator = GetComponent<Animator>();
     }
 
     protected override void ComputeVelocity()
@@ -51,7 +51,7 @@ public class MovementController : PhysicsObject
         }
 
         //Sets right sprite for grounded and walking position
-        animator.SetBool("grounded", grounded);
-        animator.SetFloat("velocityX", Mathf.Abs(velocity.x) / maxSpeed);
+        //animator.SetBool("grounded", grounded);
+        //animator.SetFloat("velocityX", Mathf.Abs(velocity.x) / maxSpeed);
     }
 }

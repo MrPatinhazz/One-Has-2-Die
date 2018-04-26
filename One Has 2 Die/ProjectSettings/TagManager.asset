@@ -15,7 +15,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Player
   - 
   - 
   - 
@@ -42,4 +42,19 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Skybox
+    uniqueID: 882930275
+    locked: 0
+  - name: Terrain
+    uniqueID: 2216580023
+    locked: 0
+  - name: Dressing
+    uniqueID: 1510343049
+    locked: 0
+  - name: Boss
+    uniqueID: 386962931
+    locked: 0
+  - name: Player
+    uniqueID: 2039731373
     locked: 0

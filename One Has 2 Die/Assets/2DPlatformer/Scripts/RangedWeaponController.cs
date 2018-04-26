@@ -11,50 +11,50 @@ public class RangedWeaponController : MonoBehaviour
     private Vector3 projZRot = Vector3.zero;                  // Projectile rotation zero
     private Vector3 projRot = new Vector3(0,0,180);           // Projectile rotation 180º
 
-    private bool _fRight;                      // Player facing right?
     private Animator anim;                     // Reference to the Animator component.
     public string _shootB;                     // Shooting button
 
     public float pSpeed = 5;               // The speed the rocket will fire at.
-    public float shotSpacer = 0.3f;        // Time between shots
-    private bool _canShoot;
 
     void Awake()
     {
         // Setting up the references.
         //anim = transform.root.gameObject.GetComponent<Animator>();
-        _fRight = GetComponentInParent<MovementController>().facingRight;
         projectile.GetComponent<SpriteRenderer>().sprite = projectileSprite;
         projRb2d = projectile.GetComponent<Rigidbody2D>();
-
-        _canShoot = true;
     }
-    
+
+    private void Update()
+    {
+        if (Input.GetButton(_shootB))
+        {
+            Shoot();
+        }
+    }
+
     void Start()
     {
-        InvokeRepeating("Shoot", 2, shotSpacer);
+        
     }
 
     private void Shoot()
     {
-        _fRight = GetComponentInParent<MovementController>().facingRight;
-
-        // ... set the animator Shoot trigger parameter and play the audioclip.
-        //anim.SetTrigger("Shoot");
-        //audio.Play();
-
-        if (_fRight)
-        {
-            // ... instantiate the projectile facing right and set it's velocity to the right. 
-            Rigidbody2D bulletInstance = Instantiate(projRb2d, transform.position, Quaternion.Euler(projRot)) as Rigidbody2D;
-            bulletInstance.velocity = new Vector2(pSpeed, 5);
-        }
-        else
-        {
-            // Otherwise instantiate the projectile facing left and set it's velocity to the left.
-            Rigidbody2D bulletInstance = Instantiate(projRb2d, transform.position, Quaternion.Euler(projZRot)) as Rigidbody2D;
-            bulletInstance.velocity = new Vector2(-pSpeed, 5);
-        }
-
+        Vector3 inputDir = Vector3.zero;
+        inputDir.x = Input.GetAxis("R_XAxis_1");
+        inputDir.y = Input.GetAxis("R_YAxis_1");        
+        Vector3 spawnPos = transform.parent.position + new Vector3(0, 0.46f, 0) + Vector3.ClampMagnitude(inputDir, 0.5f);
+        // ... instantiate the projectile facing right and set it's velocity to the right. 
+        Rigidbody2D bulletInstance = Instantiate(projRb2d, spawnPos, Quaternion.Euler(projRot),transform.parent) as Rigidbody2D;
+        bulletInstance.velocity = new Vector2(pSpeed, 5);
     }
+
+    //public void OnDrawGizmos()
+    //{
+    //    Gizmos.DrawWireSphere((this.transform.parent.position) + new Vector3(0,0.46f,0), 0.5f);
+    //    Vector3 inputDir = Vector3.zero;
+    //    inputDir.x = Input.GetAxis("R_XAxis_1");
+    //    inputDir.y = Input.GetAxis("R_YAxis_1");
+    //    Gizmos.DrawLine((this.transform.parent.position) + new Vector3(0, 0.46f, 0), transform.parent.position + new Vector3(0, 0.46f, 0) + Vector3.ClampMagnitude(inputDir, 1f));
+    //    Gizmos.DrawSphere(transform.parent.position + new Vector3(0, 0.46f, 0) + Vector3.ClampMagnitude(inputDir, 1f), 0.1f);
+    //}
 }
