@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Boss
   - Projectile
+  - Box
   layers:
   - Default
   - TransparentFX
@@ -45,6 +46,9 @@ TagManager:
     locked: 0
   - name: Skybox
     uniqueID: 882930275
+    locked: 0
+  - name: Background
+    uniqueID: 3809442037
     locked: 0
   - name: Terrain
     uniqueID: 2216580023
