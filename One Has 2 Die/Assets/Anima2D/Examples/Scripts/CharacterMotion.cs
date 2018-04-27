@@ -12,7 +12,7 @@ public class CharacterMotion : MonoBehaviour
 
 	void Update ()
 	{
-		float xAxis = Input.GetAxis("Horizontal");
+		float xAxis = Input.GetAxis("DPad_XAxis_1");
 
 		Vector3 eulerAngles = transform.localEulerAngles;
 
