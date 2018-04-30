@@ -5,7 +5,7 @@ public class MovementController : PhysicsObject
     public float maxSpeed = 7;
     public float jumpTakeOffSpeed = 7;
 
-    private SpriteRenderer spRender;
+    public GameObject skeleton;
     private Animator animator;
     private Rigidbody2D m_rb2d;
 
@@ -18,8 +18,6 @@ public class MovementController : PhysicsObject
     private void Awake()
     {
         facingRight = true;
-
-        spRender = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
     }
 
@@ -32,7 +30,7 @@ public class MovementController : PhysicsObject
         if (Input.GetButtonDown(jumpButton) && grounded)
         {
             velocity.y = jumpTakeOffSpeed;
-            //animator.SetFloat("jumpTakeOffSpeed", velocity,y);
+            animator.SetFloat("speedY", velocity.y);
         }
         else if (Input.GetButtonUp(jumpButton))
         {
@@ -44,15 +42,17 @@ public class MovementController : PhysicsObject
 
         targetVelocity = move * maxSpeed;
 
-        //bool flipSprite = (spRender.flipX ? (move.x > 0.01f) : (move.x < -0.01f));
-        //if (flipSprite)
-        //{
-        //    facingRight = !facingRight;
-        //    spRender.flipX = !spRender.flipX;
-        //}
+        bool flipSprite = (skeleton.transform.localScale.x < 0 ? (move.x > 0.01f) : (move.x < -0.01f));
+        if (flipSprite)
+        {
+            facingRight = !facingRight;
+            Vector3 newScale = skeleton.transform.localScale;
+            newScale.x *= -1;
+            skeleton.transform.localScale = newScale;
+        }
 
         
-        //animator.SetBool("grounded", grounded);
-        //animator.SetFloat("velocityX", Mathf.Abs(velocity.x) / maxSpeed);
+        animator.SetBool("grounded", grounded);
+        animator.SetFloat("speedX", Mathf.Abs(velocity.x) / maxSpeed);
     }
 }
