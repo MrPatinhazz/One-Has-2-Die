@@ -11,3 +11,12 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: Assets/Main/Scenes/2DPlatformerMain.unity
+    guid: e0a1972c08fa4654a9c1bd74e5d9e085
+  - enabled: 0
+    path: Assets/Main/Scenes/STScene.unity
+    guid: 1e17a52d4bc61b94582d17b3f36dab9f
+  - enabled: 1
+    path: Assets/Main/Scenes/Menu.unity
+    guid: df11453ea9af4e34a8e2d0caaa11d69f
